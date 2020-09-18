@@ -1,11 +1,43 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <Header />
+    <Favoritos titulo="FAVORITE VOICES" />
+    <Voces titulo="PRO VOICES" />
+  </div>
 </template>
 
 <script>
+import Header from "./components/Header";
+import Favoritos from "./components/Favoritos";
+import Voces from "./components/Voces";
+import { mapActions } from "vuex";
 export default {
   name: "App",
-  components: {},
+  components: {
+    Header,
+    Favoritos,
+    Voces,
+  },
+  methods: {
+    ...mapActions(["getDatos"]),
+    getJson() {
+      fetch("voices.json")
+        .then((res) => res.json())
+        .then((res) => {
+          const voces = res.map((voz) => {
+            return {
+              ...voz,
+              favorito: false,
+              seleccionado: false,
+            };
+          });
+          this.getDatos(voces);
+        });
+    },
+  },
+  mounted() {
+    this.getJson();
+  },
 };
 </script>
 
