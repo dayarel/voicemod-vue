@@ -6,10 +6,19 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     voces: [],
+    busqueda: "",
+    categorias: null,
+    sorting: null,
   },
   getters: {
     getVoces(state) {
-      return state.voces;
+      let voces = state.voces;
+      if (state.busqueda.length > 2) {
+        return state.voces.filter((voz) =>
+          voz.name.toLowerCase().includes(state.busqueda)
+        );
+      }
+      return voces;
     },
     getFavoritos(state) {
       return state.voces.filter((voz) => voz.favorito);
@@ -29,6 +38,9 @@ export default new Vuex.Store({
         }
       });
     },
+    setBusqueda(state, busqueda) {
+      state.busqueda = busqueda;
+    },
   },
   actions: {
     getDatos({ commit }, voces) {
@@ -39,6 +51,9 @@ export default new Vuex.Store({
     },
     unfavAction({ commit }, index) {
       commit("unsetFavoritos", index);
+    },
+    busquedaAction({ comit }, valor) {
+      commit("setBusqueda", valor);
     },
   },
 });

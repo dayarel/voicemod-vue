@@ -1,6 +1,6 @@
 <template>
   <form>
-    <input type="text" v-model="search" />
+    <input type="text" v-model="busqueda" />
     <div class="sort-group">
       <div>
         <img src="@/assets/img/filter.svg" alt="Filter icon" />
@@ -28,10 +28,15 @@
 <script>
 export default {
   name: "Header",
-  data() {
-    return {
-      search: "",
-    };
+  computed: {
+    busqueda: {
+      get() {
+        return this.$store.state.busqueda;
+      },
+      set(valor) {
+        this.$store.commit("setBusqueda", valor);
+      },
+    },
   },
 };
 </script>
