@@ -5,7 +5,7 @@
       <div>
         <img src="@/assets/img/filter.svg" alt="Filter icon" />
         <div class="custom-dropdown">
-          <select name="categories" id="categories">
+          <select name="categorias" v-model="opcion">
             <option value="null">All</option>
             <option v-for="categoria in categorias">{{categoria}}</option>
           </select>
@@ -13,8 +13,8 @@
       </div>
       <div>
         <img src="@/assets/img/order.svg" alt />
-        <div class="custom-dropdown" v-model="sorting">
-          <select name="sorting" id="sorting">
+        <div class="custom-dropdown">
+          <select name="sorting">
             <option value="null">Popular</option>
             <option value="desc">A-Z</option>
             <option value="asc">Z-A</option>
@@ -40,12 +40,12 @@ export default {
         this.$store.commit("setBusqueda", valor);
       },
     },
-    sorting: {
+    opcion: {
       get() {
-        return this.$store.state.sorting;
+        return this.$store.state.opcion;
       },
-      set(dropValue) {
-        this.$store.commit("setSorting");
+      set(opcion) {
+        this.$store.commit("setOpcion", opcion);
       },
     },
   },

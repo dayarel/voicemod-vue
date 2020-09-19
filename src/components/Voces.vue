@@ -2,12 +2,7 @@
   <section>
     <h1>{{ titulo }}</h1>
     <div class="voces-container">
-      <Voz
-        v-for="(voz,index) in getVoces"
-        :voz="voz"
-        :key="voz.id"
-        @click.native="selectAction(index)"
-      >
+      <Voz v-for="(voz,index) in getVoces" :voz="voz" :key="voz.id">
         <div class="fav-section" @click="favAction(index)">
           <svg viewBox="0 0 457.1 423.3">
             <path

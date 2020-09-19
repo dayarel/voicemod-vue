@@ -8,6 +8,7 @@ export default new Vuex.Store({
     voces: [],
     busqueda: "",
     categorias: [],
+    opcion: null,
     sorting: null,
   },
   getters: {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
         return state.voces.filter((voz) =>
           voz.name.toLowerCase().includes(state.busqueda)
         );
+      }
+      if (state.opcion != null) {
+        return state.voces.filter((voz) => voz.tags[0] === state.opcion);
       }
       return voces;
     },
@@ -47,6 +51,9 @@ export default new Vuex.Store({
     },
     setBusqueda(state, busqueda) {
       state.busqueda = busqueda;
+    },
+    setOpcion(state, opcion) {
+      state.opcion = opcion;
     },
   },
   actions: {
