@@ -7,13 +7,13 @@ export default new Vuex.Store({
   state: {
     voces: [],
     busqueda: "",
-    categorias: null,
+    categorias: [],
     sorting: null,
   },
   getters: {
     getVoces(state) {
       let voces = state.voces;
-      if (state.busqueda.length > 2) {
+      if (state.busqueda.length > 1) {
         return state.voces.filter((voz) =>
           voz.name.toLowerCase().includes(state.busqueda)
         );
@@ -27,6 +27,13 @@ export default new Vuex.Store({
   mutations: {
     setVoces(state, voces) {
       state.voces = voces;
+    },
+    rellenarCategorias(state) {
+      state.voces.map((voz) => {
+        state.categorias.indexOf(voz.tags[0]) === -1
+          ? state.categorias.push(voz.tags[0])
+          : null;
+      });
     },
     setFavoritos(state, index) {
       state.voces[index].favorito = !state.voces[index].favorito;
@@ -52,8 +59,8 @@ export default new Vuex.Store({
     unfavAction({ commit }, index) {
       commit("unsetFavoritos", index);
     },
-    busquedaAction({ comit }, valor) {
-      commit("setBusqueda", valor);
+    categoriasAction({ commit }) {
+      commit("rellenarCategorias");
     },
   },
 });

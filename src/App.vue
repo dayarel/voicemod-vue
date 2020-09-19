@@ -19,7 +19,7 @@ export default {
     Voces,
   },
   methods: {
-    ...mapActions(["getDatos"]),
+    ...mapActions(["getDatos", "categoriasAction"]),
     getJson() {
       fetch("voices.json")
         .then((res) => res.json())
@@ -32,7 +32,8 @@ export default {
             };
           });
           this.getDatos(voces);
-        });
+        })
+        .then((res) => this.categoriasAction());
     },
   },
   mounted() {

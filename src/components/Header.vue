@@ -7,12 +7,13 @@
         <div class="custom-dropdown">
           <select name="categories" id="categories">
             <option value="null">All</option>
+            <option v-for="categoria in categorias">{{categoria}}</option>
           </select>
         </div>
       </div>
       <div>
         <img src="@/assets/img/order.svg" alt />
-        <div class="custom-dropdown">
+        <div class="custom-dropdown" v-model="sorting">
           <select name="sorting" id="sorting">
             <option value="null">Popular</option>
             <option value="desc">A-Z</option>
@@ -26,15 +27,25 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Header",
   computed: {
+    ...mapState(["categorias"]),
     busqueda: {
       get() {
         return this.$store.state.busqueda;
       },
       set(valor) {
         this.$store.commit("setBusqueda", valor);
+      },
+    },
+    sorting: {
+      get() {
+        return this.$store.state.sorting;
+      },
+      set(dropValue) {
+        this.$store.commit("setSorting");
       },
     },
   },
