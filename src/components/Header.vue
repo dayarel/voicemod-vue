@@ -1,35 +1,36 @@
 <template>
   <form>
-    <input type="text" v-model="busqueda" />
+    <div class="search-panel">
+      <input type="text" v-model="busqueda" />
+      <button @click.prevent="resetAction">X</button>
+    </div>
+
     <div class="sort-group">
-      <div>
-        <img src="@/assets/img/filter.svg" alt="Filter icon" />
-        <div class="custom-dropdown">
-          <select name="categorias" v-model="opcion">
-            <option value="null">All</option>
-            <option v-for="categoria in categorias">{{categoria}}</option>
-          </select>
+      <div class="select-container">
+        <div>
+          <img src="@/assets/img/filter.svg" alt="Filter icon" />
+          <div class="custom-dropdown">
+            <Select :opciones="['All',...categorias]" tipo="categorias" />
+          </div>
+        </div>
+        <div>
+          <img src="@/assets/img/order.svg" alt />
+          <div class="custom-dropdown">
+            <Select :opciones="['Popular','A-Z','Z-A']" tipo="alfabetico" />
+          </div>
         </div>
       </div>
-      <div>
-        <img src="@/assets/img/order.svg" alt />
-        <div class="custom-dropdown">
-          <select name="sorting">
-            <option value="null">Popular</option>
-            <option value="desc">A-Z</option>
-            <option value="asc">Z-A</option>
-          </select>
-        </div>
-      </div>
-      <button type="button">Random</button>
+      <button type="button" @click="randomAction">Random</button>
     </div>
   </form>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
+import Select from "./Select";
 export default {
   name: "Header",
+  components: { Select },
   computed: {
     ...mapState(["categorias"]),
     busqueda: {
@@ -40,22 +41,16 @@ export default {
         this.$store.commit("setBusqueda", valor);
       },
     },
-    opcion: {
-      get() {
-        return this.$store.state.opcion;
-      },
-      set(opcion) {
-        this.$store.commit("setOpcion", opcion);
-      },
-    },
+  },
+  methods: {
+    ...mapActions(["randomAction", "resetAction"]),
   },
 };
 </script>
 
 <style lang="scss" scoped>
 form {
-  margin-top: 15px;
-
+  width: 100%;
   @media (min-width: 768px) {
     display: flex;
     justify-content: space-between;
@@ -63,51 +58,85 @@ form {
   }
   select,
   input {
+    background-color: #000;
     color: var(--medium);
-    height: 35px;
-    color: var(--medium);
+    height: 30px;
     border: none;
+    line-height: 30px;
+    line-height: 3rem;
   }
-  input {
-    border-radius: 25px;
-    background: #000 url("../assets/img/search.svg") no-repeat left center;
-    padding-left: 35px;
-    width: 100%;
-    flex: 0 1 250px;
+  .search-panel {
+    position: relative;
+    flex: 0 1 245px;
+    input {
+      border-radius: 25px;
+      background: #000 url("../assets/img/search.svg") no-repeat left center;
+      padding: 0 35px 0 55px;
+      width: 100%;
+      color: white;
+      font-size: 16px;
+      font-size: 1.6rem;
+    }
+    button {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 18px;
+      font-size: 1.8rem;
+      padding: 0;
+      margin: 0;
+    }
   }
   .sort-group {
     display: flex;
-    flex: 0 1 350px;
-    margin-top: 25px;
+    flex-wrap: nowrap;
+    flex: 0 1 415px;
+    margin-top: 15px;
     justify-content: space-between;
+    height: 30px;
     @media (min-width: 768px) {
       margin-top: 0;
     }
-
-    & > div {
+    .select-container {
       display: flex;
-      flex: 1 1 auto;
+      flex: 1 1 165px;
       &:not(:first-of-type) {
         margin-left: 25px;
       }
-      .custom-dropdown {
-        width: 100%;
-        position: relative;
-        select {
+      & > div {
+        display: flex;
+        flex: 1 1 165px;
+        &:not(:first-of-type) {
+          margin-left: 25px;
+        }
+        .custom-dropdown {
           width: 100%;
-          margin-left: 7px;
-          background-color: #000;
-          border-radius: 3px;
+          @media (min-width: 768px) {
+            flex: 0 0 125px;
+          }
+          select {
+            width: inherit;
+            padding-left: 15px;
+            font-size: 16px;
+            font-size: 1.6rem;
+            width: 100%;
+            margin-left: 7px;
+            background-color: #000;
+            border-radius: 3px;
+          }
         }
       }
     }
-
     button {
       margin-left: 25px;
       display: block;
       border: none;
-      width: 35px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
       background: transparent url("../assets/img/button-random.svg");
       background-size: cover;
       text-indent: -99999px;
