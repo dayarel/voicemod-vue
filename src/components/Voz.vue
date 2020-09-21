@@ -24,6 +24,20 @@ article {
   flex-flow: column nowrap;
   align-items: center;
   margin-top: 30px;
+  &.faved {
+    .voz-container {
+      .image-container {
+        background-color: white;
+        .fav-section {
+          opacity: 1;
+          transform: scale(1);
+          svg {
+            fill: var(--blue);
+          }
+        }
+      }
+    }
+  }
   &.seleccionado {
     .voz-container {
       .image-container {
@@ -34,6 +48,7 @@ article {
       }
     }
   }
+
   .voz-container {
     .image-container {
       width: 110px;
@@ -46,6 +61,7 @@ article {
       transition: all 0.35s ease-in-out;
       &:hover {
         background-color: white;
+
         .fav-section {
           opacity: 1;
           transform: scale(1);
@@ -75,18 +91,6 @@ article {
           width: 14px;
           height: 14px;
           animation: beating infinite 1s;
-        }
-      }
-    }
-    &.faved {
-      .image-container {
-        background-color: white;
-        .fav-section {
-          opacity: 1;
-          transform: scale(1);
-          svg {
-            fill: var(--blue);
-          }
         }
       }
     }

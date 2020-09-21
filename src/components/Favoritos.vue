@@ -6,7 +6,12 @@
     </h1>
     <p v-if="getFavoritos.length < 1">It's quite boring up here!. Please try adding some voices</p>
     <div class="voces-container">
-      <Voz v-for="(voz,index) in getFavoritos" :voz="voz" :key="voz.id">
+      <Voz
+        v-for="(voz,index) in getFavoritos"
+        :voz="voz"
+        :key="voz.id"
+        :class="{faved:voz.favorito}"
+      >
         <div class="fav-section" @click="unfavAction(voz.id)">
           <svg viewBox="0 0 457.1 423.3">
             <path
