@@ -35,6 +35,7 @@ p {
 
 main {
   padding: 0 15px;
+  margin-top: 155px;
 }
 
 p {
@@ -44,5 +45,6 @@ p {
 @media (min-width: 768px) {
   main {
     padding: 0 45px;
+    margin-top: 110px;
   }
 }
