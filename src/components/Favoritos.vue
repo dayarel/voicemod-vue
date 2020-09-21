@@ -2,7 +2,7 @@
   <section>
     <h1>
       {{ titulo }}
-      <span v-if="getFavoritos.length">{{getFavoritos.length}}</span>
+      <span>{{getFavoritos.length}}</span>
     </h1>
     <p v-if="getFavoritos.length < 1">It's quite boring up here!. Please try adding some voices</p>
     <div class="voces-container">

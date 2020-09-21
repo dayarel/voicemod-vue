@@ -2,7 +2,7 @@
   <section>
     <h1>
       {{ titulo }}
-      <span v-if="getVoces.length">{{getVoces.length}}</span>
+      <span>{{getVoces.length}}</span>
     </h1>
     <p v-if="getVoces.length < 1">Sorry, but we can't find any match.</p>
     <div class="voces-container">
