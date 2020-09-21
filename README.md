@@ -51,9 +51,14 @@ Al hacer uso de ciertas tecnologías y según el feedback aportado por los FEDs 
 
  Las decisiones tomadas fueron:
   
-   - Respecto a la navegación. He respestado el Layout del diseño para tablet y sobremesa. En móviles, sin embargo, he dividido la nevegación en 2 filas, la superior para la búsqueda, y la inferior para los selects, de tal manera que los elementos de la interfaz se acomoden mejor al espacio disponible
+   - Respecto a la navegación. He respestado el Layout del diseño para tablet y sobremesa. En móviles, sin embargo, he dividido la nevegación en 2 filas, la superior para la búsqueda, y la inferior para los selects, de tal manera que los elementos de la interfaz se acomoden mejor al espacio disponible.
    - Respecto al resto de las voces, probé varios layouts y al final opté por 2 en móviles, 4 en tablet y 6 en sobremesa (como el diseño del briefing). La idea principal era mantener siempre un número par para tener una coherencia dentro del layout. Para crear el layout usé CSS grid (ver User Persona)
-  
+ 
+# UX/UI
+
+  - Respecto a la navegación enstaba contento si desaparecía con el scroll. He optado a dejarla a última hora fijada en la cabecera. Pera ello, he añadido una pequeña
+  sombra para que se diferencie del resto de contenido.
+
 # INTERACTIVIDAD
 
    - Para la búsqueda manual, probé algunas variaciones:
