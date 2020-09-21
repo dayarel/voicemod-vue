@@ -24,6 +24,9 @@ article {
   flex-flow: column nowrap;
   align-items: center;
   margin-top: 30px;
+  transition: all 1s ease-in-out;
+  animation: pop 0.55s ease-in-out backwards;
+
   &.faved {
     .voz-container {
       .image-container {
@@ -103,6 +106,17 @@ article {
   @keyframes beating {
     0% {
       transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0);
     }
     50% {
       transform: scale(1.2);

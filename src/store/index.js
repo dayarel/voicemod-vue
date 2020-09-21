@@ -79,7 +79,13 @@ export default new Vuex.Store({
       });
     },
     setFavoritos(state, index) {
-      state.voces[index].favorito = !state.voces[index].favorito;
+      let seleccionado = {};
+      state.voces.map((voz) => {
+        if (voz.id === index) {
+          seleccionado = voz;
+        }
+      });
+      seleccionado.favorito = !seleccionado.favorito;
     },
     unsetFavoritos(state, nombre) {
       state.voces.map((voz) => {

@@ -13,7 +13,7 @@
         @click.native="seleccionadoAction(index)"
         :class="{seleccionado:voz.seleccionado, faved:voz.favorito}"
       >
-        <div class="fav-section" @click.stop="favAction(index)">
+        <div class="fav-section" @click.stop="favAction(voz.id)">
           <svg viewBox="0 0 457.1 423.3">
             <path
               d="M120 0C53.8 0 0 53.8 0 120c0 134.8 135.9 170.1 228.6 303.3C316.1 290.9 457.1 250.5 457.1 120c0-66.2-53.8-120-120-120-48 0-89.4 28.4-108.6 69.2C209.4 28.4 168 0 120 0z"
