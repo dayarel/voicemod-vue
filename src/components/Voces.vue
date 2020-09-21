@@ -4,8 +4,15 @@
       {{ titulo }}
       <span v-if="getVoces.length">{{getVoces.length}}</span>
     </h1>
+    <p v-if="getVoces.length < 1">Sorry, but we can't find any match.</p>
     <div class="voces-container">
-      <Voz v-for="(voz,index) in getVoces" :voz="voz" :key="voz.id">
+      <Voz
+        v-for="(voz,index) in getVoces"
+        :voz="voz"
+        :key="voz.id"
+        @click.native="seleccionadoAction(index)"
+        :class="{seleccionado:voz.seleccionado}"
+      >
         <div class="fav-section">
           <svg viewBox="0 0 457.1 423.3">
             <path
@@ -29,7 +36,7 @@ export default {
     ...mapGetters(["getVoces"]),
   },
   methods: {
-    ...mapActions(["favAction", "selectAction"]),
+    ...mapActions(["favAction", "seleccionadoAction"]),
   },
 };
 </script>
@@ -67,6 +74,18 @@ section {
       line-height: 35px;
       font-weight: 700;
       text-align: center;
+    }
+    & + p {
+      margin-top: 30px;
+
+      font-size: 18px;
+      font-size: 1.8rem;
+
+      @media (min-width: 768px) {
+        font-size: 25px;
+        font-size: 2.5rem;
+        text-align: center;
+      }
     }
   }
   .voces-container {

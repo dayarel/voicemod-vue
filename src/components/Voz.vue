@@ -1,7 +1,7 @@
 <template>
   <article>
     <div class="voz-container">
-      <div class="image-container" :class="{seleccionado: voz.seleccionado}">
+      <div class="image-container">
         <img :src="require(`@/assets/img/${voz.icon}`)" :alt="voz.name" />
         <slot></slot>
       </div>
@@ -12,13 +12,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 export default {
   name: "Voz",
   props: ["voz", "index"],
-  methods: {
-    ...mapActions(["seleccionadoAction"]),
-  },
 };
 </script>
 
@@ -28,6 +24,16 @@ article {
   flex-flow: column nowrap;
   align-items: center;
   margin-top: 30px;
+  &.seleccionado {
+    .voz-container {
+      .image-container {
+        background-color: var(--blue);
+      }
+      p {
+        color: var(--blue);
+      }
+    }
+  }
   .voz-container {
     .image-container {
       width: 110px;
@@ -44,9 +50,6 @@ article {
           opacity: 1;
           transform: scale(1);
         }
-      }
-      &.seleccionado {
-        background-color: var(--blue);
       }
       img {
         display: block;
