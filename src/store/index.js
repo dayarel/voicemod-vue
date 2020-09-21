@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { Store } from "vuex";
 
 Vue.use(Vuex);
 
@@ -7,23 +7,56 @@ export default new Vuex.Store({
   state: {
     voces: [],
     busqueda: "",
-    categorias: [],
-    opcion: null,
-    sorting: null,
+    categorias: [""],
+    opcion: "",
+    sorting: "popular",
+    random: -1,
   },
   getters: {
     getVoces(state) {
-      let voces = state.voces;
-      if (state.busqueda.length > 1) {
-        return state.voces.filter((voz) =>
+      let filtroVoces = state.voces.slice();
+      if (state.busqueda.length > 0) {
+        filtroVoces = filtroVoces.filter((voz) =>
           voz.name.toLowerCase().includes(state.busqueda)
         );
       }
-      if (state.opcion != null) {
-        return state.voces.filter((voz) => voz.tags[0] === state.opcion);
+
+      if (state.opcion !== "") {
+        filtroVoces = filtroVoces.filter((voz) => voz.tags[0] === state.opcion);
       }
-      return voces;
+
+      if (
+        state.sorting === "A-Z" ||
+        state.sorting.toLowerCase() === "popular"
+      ) {
+        filtroVoces.sort((b, a) => {
+          const vozA = a.name.trim("").toLowerCase(),
+            vozB = b.name.trim("").toLowerCase();
+          if (vozA < vozB)
+            //sort string ascending
+            return 1;
+          if (vozA > vozB) return -1;
+          return 0;
+        });
+      } else {
+        filtroVoces.sort((b, a) => {
+          const vozA = a.name.trim("").toLowerCase(),
+            vozB = b.name.trim("").toLowerCase();
+          if (vozA < vozB) return -1;
+          if (vozA > vozB) return 1;
+          return 0;
+        });
+      }
+      if (state.random >= 0) {
+        filtroVoces = state.voces.filter(
+          (voz) => voz.id === state.voces[state.random].id
+        );
+      }
+      // Devuelve la array que cumple todos los requisitos;
+
+      return filtroVoces;
     },
+
     getFavoritos(state) {
       return state.voces.filter((voz) => voz.favorito);
     },
@@ -33,10 +66,16 @@ export default new Vuex.Store({
       state.voces = voces;
     },
     rellenarCategorias(state) {
+      let categoriasTemp = [];
       state.voces.map((voz) => {
-        state.categorias.indexOf(voz.tags[0]) === -1
-          ? state.categorias.push(voz.tags[0])
-          : null;
+        if (categoriasTemp.indexOf(voz.tags[0]) === -1) {
+          categoriasTemp.push(voz.tags[0]);
+        }
+      });
+      categoriasTemp.map((categoria) => {
+        const cat =
+          categoria.charAt(0).toUpperCase() + categoria.substr(1).toLowerCase();
+        state.categorias.push(cat);
       });
     },
     setFavoritos(state, index) {
@@ -49,11 +88,28 @@ export default new Vuex.Store({
         }
       });
     },
+    setSeleccionado(state, index) {
+      state.voces[index].seleccionado = !state.voces[index].seleccionado;
+    },
     setBusqueda(state, busqueda) {
       state.busqueda = busqueda;
     },
-    setOpcion(state, opcion) {
-      state.opcion = opcion;
+    resetBusqueda(state) {
+      state.busqueda = "";
+    },
+    setCategoria(state, opcion) {
+      if (opcion.toLowerCase() === "all") {
+        state.random = -1;
+        state.opcion = "";
+      } else {
+        state.opcion = opcion.toLowerCase();
+      }
+    },
+    setAlfabetico(state, opcion) {
+      state.sorting = opcion;
+    },
+    setRandom(state, number) {
+      state.random = number;
     },
   },
   actions: {
@@ -68,6 +124,22 @@ export default new Vuex.Store({
     },
     categoriasAction({ commit }) {
       commit("rellenarCategorias");
+    },
+    randomAction({ commit, state }) {
+      const random = Math.floor(Math.random() * state.voces.length);
+      commit("setRandom", random);
+    },
+    resetAction({ commit }) {
+      commit("resetBusqueda");
+    },
+    sortingAction({ commit }, opcion) {
+      commit("setCategoria", opcion);
+    },
+    alfabeticoAction({ commit }, opcion) {
+      commit("setAlfabetico", opcion);
+    },
+    seleccionadoAction({ commit }, index) {
+      commit("setSeleccionado", index);
     },
   },
 });
