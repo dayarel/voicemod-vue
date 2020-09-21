@@ -40,6 +40,9 @@ Al hacer uso de ciertas tecnologías y según el feedback aportado por los FEDs 
   - No usar ningún framework de CSS ya que en un email se comenta que la aplicación no usa ninguno (a pesar de que en los requisitos del briefing se especificaba que el uso de Bootstrap era un requisito). 
   - No he utilizado ningún plugin de Vue ya que desconozco si usáis alguno, tales como Vue Select, Transition Group, etc..
   - He optado por utilizar SCSS en el css para los componentes, a fín de ahorrar líneas de código y hacer más legible los estilos, y CSS sin preprocesar para estilos globales.
+  - Usar Vue CLI en vez del CDN, ya que supongo que una aplicación de cierto tamaño como VoiceMod hará uso extensivo de Single File Components, Webpack, etc
+  - VueX, por el mismo motivo anterior. Supongo que una app de tal magnitud tendrá un sistema centralizado de estados por lo que decidí usar VueX en vez de usar un Event Bus 
+  para la comunicación entre componentes
   
 
 ## Desarrollo
