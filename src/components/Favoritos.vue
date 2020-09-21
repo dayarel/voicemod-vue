@@ -1,6 +1,10 @@
 <template>
   <section>
-    <h1>{{ titulo }}</h1>
+    <h1>
+      {{ titulo }}
+      <span v-if="getFavoritos.length">{{getFavoritos.length}}</span>
+    </h1>
+    <p v-if="getFavoritos.length < 1">It's quite boring up here!. Please try adding some voices</p>
     <div class="voces-container">
       <Voz v-for="(voz,index) in getFavoritos" :voz="voz" :key="voz.id">
         <div class="fav-section" @click="unfavAction(voz.id)">
@@ -36,9 +40,9 @@ section {
   margin-top: 35px;
   h1 {
     color: var(--medium);
-    font-size: 25px;
-    font-size: 2.5rem;
-    font-weight: 400;
+    font-size: 21px;
+    font-size: 2.1rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
     &:after {
@@ -59,13 +63,34 @@ section {
       position: relative;
       box-shadow: #000000 2px 2px 4px, #4d4d4d -2px -2px 4px;
       font-size: 18px;
+      font-size: 1.8rem;
       line-height: 35px;
+      font-weight: 700;
       text-align: center;
+    }
+    & + p {
+      margin-top: 30px;
+
+      font-size: 18px;
+      font-size: 1.8rem;
+
+      @media (min-width: 768px) {
+        font-size: 25px;
+        font-size: 2.5rem;
+        text-align: center;
+      }
     }
   }
   .voces-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(6, 1fr);
+    }
     margin-top: 15px;
   }
 }
