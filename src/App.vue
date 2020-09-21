@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <Header />
-    <Favoritos titulo="FAVORITE VOICES" />
-    <Voces titulo="PRO VOICES" />
+    <main>
+      <Favoritos titulo="FAVORITE VOICES" />
+      <Voces titulo="PRO VOICES" />
+    </main>
   </div>
 </template>
 
@@ -44,10 +46,8 @@ export default {
 
 <style lang="scss">
 #app {
-  margin-top: 20px;
-  padding: 0 15px;
-  margin: 0 auto;
-  width: 100%;
+  margin: 20px auto 0;
+  width: 90%;
   max-width: 1140px;
 }
 </style>
