@@ -104,10 +104,16 @@ export default new Vuex.Store({
         }
       });
     },
-    setSeleccionado(state, index) {
-      state.voces.map((voz) => (voz.seleccionado = false));
-      state.voces.seleccionado = false;
-      state.voces[index].seleccionado = true;
+    setSeleccionado(state, sel) {
+      let seleccion = {};
+
+      state.voces.map((voz) => {
+        voz.seleccionado = false;
+        if (voz.id === sel) {
+          seleccion = voz;
+        }
+      });
+      seleccion.seleccionado = true;
     },
     setBusqueda(state, busqueda) {
       state.busqueda = busqueda;

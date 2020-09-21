@@ -10,7 +10,7 @@
         v-for="(voz,index) in getVoces"
         :voz="voz"
         :key="voz.id"
-        @click.native="seleccionadoAction(index)"
+        @click.native="seleccionadoAction(voz.id)"
         :class="{seleccionado:voz.seleccionado, faved:voz.favorito}"
       >
         <div class="fav-section" @click.stop="favAction(voz.id)">
