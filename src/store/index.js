@@ -13,8 +13,10 @@ export default new Vuex.Store({
     random: -1,
   },
   getters: {
+    // Filtra la lista de voces disponibles segun el filtro activo
     getVoces(state) {
       let filtroVoces = state.voces.slice();
+
       if (state.busqueda.length > 0) {
         filtroVoces = filtroVoces.filter((voz) =>
           voz.name.toLowerCase().includes(state.busqueda)
@@ -57,6 +59,8 @@ export default new Vuex.Store({
       return filtroVoces;
     },
 
+    // Getter para la lista de favoritos
+
     getFavoritos(state) {
       return state.voces.filter((voz) => voz.favorito);
     },
@@ -67,6 +71,11 @@ export default new Vuex.Store({
     },
     rellenarCategorias(state) {
       let categoriasTemp = [];
+
+      // Recorre dinamicamente la array de voces y añade la categoria
+      // a una nueva array si no existe. Luego cambia la primera letra
+      // a mayúscula para crear las opciones del Select
+
       state.voces.map((voz) => {
         if (categoriasTemp.indexOf(voz.tags[0]) === -1) {
           categoriasTemp.push(voz.tags[0]);
@@ -78,6 +87,7 @@ export default new Vuex.Store({
         state.categorias.push(cat);
       });
     },
+
     setFavoritos(state, index) {
       let seleccionado = {};
       state.voces.map((voz) => {
