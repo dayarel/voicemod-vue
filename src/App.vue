@@ -46,8 +46,11 @@ export default {
 
 <style lang="scss">
 #app {
-  margin: 20px auto 0;
+  margin: 125px auto 0;
   width: 90%;
   max-width: 1140px;
+  @media (min-width: 768px) {
+    margin: 85px auto 0;
+  }
 }
 </style>
